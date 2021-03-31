@@ -1,0 +1,18 @@
+{
+  "name": "task-manager-application",
+  "version": "1.0.0",
+  "description": "user can enter the details of the their tasks and a complete track for that task will be maintained in the website",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Rohan",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.2",
+    "morgan": "^1.10.0"
+  }
+}
