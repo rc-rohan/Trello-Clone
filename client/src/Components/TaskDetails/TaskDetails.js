@@ -4,46 +4,45 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { Typography, TextField, Button } from "@material-ui/core";
 import useStyles from "./style";
+import { connect } from "react-redux";
+import { closeDescriptionModal } from "../../redux/actions/decriptionModal";
 
-const TaskDetails = ({ showModal, setModal }) => {
+const TaskDetails = ({ descriptionModalState, closeDescriptionModal }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
   const [data, setData] = useState({
     title: "",
     tags: "",
     description: "",
+    reminders: [],
   });
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  //rimenders are as bell notification for pwa app with push notificaiton feature
 
   const saveContent = () => {};
 
   const handleClose = () => {
-    setOpen(false);
-    setModal(false);
+    // setModal(false);
   };
+  console.log(descriptionModalState);
 
   return (
     <Modal
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       className={classes.modal}
-      open={showModal}
-      onClose={handleClose}
+      open={descriptionModalState.open}
+      onClose={() => closeDescriptionModal()}
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
         timeout: 500,
       }}
     >
-      <Fade in={showModal}>
+      <Fade in={descriptionModalState.open}>
         <div className={classes.paper}>
           <Typography variant="h5">Description</Typography>
           <TextField
             value={data.title}
-            onChange={(e) => setData({...data,title:e.target.value})}
+            onChange={(e) => setData({ ...data, title: e.target.value })}
             style={{
               margin: "1rem 0",
               width: "20rem",
@@ -80,4 +79,11 @@ const TaskDetails = ({ showModal, setModal }) => {
   );
 };
 
-export default TaskDetails;
+const mapStateToProps = (state) => ({
+  descriptionModalState: state.descriptionModal,
+});
+const mapDispatchToProps = (dispatch) => ({
+  closeDescriptionModal: () => dispatch(closeDescriptionModal()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskDetails);

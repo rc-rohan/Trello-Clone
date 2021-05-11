@@ -2,16 +2,19 @@ import { useState } from "react";
 import Navbar from "../Components/Navbar/Navbar";
 import { Container, Grid, Paper, Typography, Button } from "@material-ui/core";
 import TaskCards from "../Components/Cards/Cards";
-import TaskDetails from '../Components/TaskDetails/TaskDetails'
+import TaskDetails from "../Components/TaskDetails/TaskDetails";
+import { openDescriptionModal } from "../redux/actions/decriptionModal";
 
 import useStyles from "./style";
+import { connect } from "react-redux";
 
-function App() {
+function App({ openDescriptionModal }) {
   const classes = useStyles();
   const [modal, setModal] = useState(false);
   return (
     <div className="App">
       <Navbar />
+      <TaskDetails />
       <Container className={classes.container}>
         <Grid container className={classes.root} spacing={2}>
           <Grid item xs={12}>
@@ -29,7 +32,8 @@ function App() {
                     <Typography variant="h5">ToDo List</Typography>
                     <Button
                       onClick={() => {
-                        setModal(true);
+                        // setModal(true);
+                        openDescriptionModal();
                       }}
                       size="small"
                       color="primary"
@@ -38,7 +42,6 @@ function App() {
                       New
                     </Button>
                   </div>
-                  {modal && <TaskDetails showModal={modal} setModal={setModal} /> }
                   <TaskCards
                     task={{ title: "Hello to this", description: "new task" }}
                   />
@@ -68,4 +71,15 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  console.log(state);
+};
+
+const mapDispatchToProps = (dispatch) => {
+  console.log(dispatch);
+  return {
+    openDescriptionModal: () => dispatch(openDescriptionModal()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
