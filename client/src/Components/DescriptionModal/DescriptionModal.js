@@ -7,7 +7,7 @@ import useStyles from "./style";
 import { connect } from "react-redux";
 import { closeDescriptionModal } from "../../redux/actions/decriptionModal";
 
-const TaskDetails = ({ descriptionModalState, closeDescriptionModal }) => {
+const DescriptionModal = ({ descriptionModalState, closeDescriptionModal }) => {
   const classes = useStyles();
   const [data, setData] = useState({
     title: "",
@@ -19,10 +19,6 @@ const TaskDetails = ({ descriptionModalState, closeDescriptionModal }) => {
 
   const saveContent = () => {};
 
-  const handleClose = () => {
-    // setModal(false);
-  };
-  console.log(descriptionModalState);
 
   return (
     <Modal
@@ -86,4 +82,4 @@ const mapDispatchToProps = (dispatch) => ({
   closeDescriptionModal: () => dispatch(closeDescriptionModal()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(DescriptionModal);

@@ -6,20 +6,21 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import useStyles from "./style";
+import { openDescriptionModal } from "../../redux/actions/decriptionModal";
+import { connect } from "react-redux";
 
-
-const TaskCard = ({ task }) => {
+const TaskCard = (props) => {
   const classes = useStyles();
-
+  // const showDescriptionModal = useDispatch(openDescriptionModal());
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardContent>
+        <CardContent onClick={() => props.openDescriptionModal()}>
           <Typography gutterBottom variant="h5" component="h2">
-            {task.title}
+            {props.task.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {task.description}
+            {props.task.description}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -27,7 +28,11 @@ const TaskCard = ({ task }) => {
         <Button size="small" color="primary">
           Delete
         </Button>
-        <Button size="small" color="primary">
+        <Button
+          onClick={props.openDescriptionModal}
+          size="small"
+          color="primary"
+        >
           Edit
         </Button>
       </CardActions>
@@ -35,4 +40,10 @@ const TaskCard = ({ task }) => {
   );
 };
 
-export default TaskCard;
+const mapStatetoProps = () => ({});
+
+const mapDispatchToProps = (dispatch) => ({
+  openDescriptionModal: () => dispatch(openDescriptionModal()),
+});
+
+export default connect(mapStatetoProps, mapDispatchToProps)(TaskCard);

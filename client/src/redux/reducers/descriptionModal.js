@@ -8,7 +8,6 @@ const defaultState = {
 };
 
 const descriptionModal = (state = defaultState, action) => {
-  console.log(action.type);
   switch (action.type) {
     case OPEN_DESCRIPTION_MODAL:
       return {

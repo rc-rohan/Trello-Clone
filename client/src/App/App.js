@@ -1,8 +1,7 @@
-import { useState } from "react";
 import Navbar from "../Components/Navbar/Navbar";
 import { Container, Grid, Paper, Typography, Button } from "@material-ui/core";
 import TaskCards from "../Components/Cards/Cards";
-import TaskDetails from "../Components/TaskDetails/TaskDetails";
+import TaskDetails from "../Components/DescriptionModal/DescriptionModal";
 import { openDescriptionModal } from "../redux/actions/decriptionModal";
 
 import useStyles from "./style";
@@ -10,7 +9,6 @@ import { connect } from "react-redux";
 
 function App({ openDescriptionModal }) {
   const classes = useStyles();
-  const [modal, setModal] = useState(false);
   return (
     <div className="App">
       <Navbar />
@@ -31,10 +29,7 @@ function App({ openDescriptionModal }) {
                   >
                     <Typography variant="h5">ToDo List</Typography>
                     <Button
-                      onClick={() => {
-                        // setModal(true);
-                        openDescriptionModal();
-                      }}
+                      onClick={() => openDescriptionModal()}
                       size="small"
                       color="primary"
                       variant="contained"
@@ -71,12 +66,9 @@ function App({ openDescriptionModal }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  console.log(state);
-};
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch) => {
-  console.log(dispatch);
   return {
     openDescriptionModal: () => dispatch(openDescriptionModal()),
   };
